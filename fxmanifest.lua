@@ -3,9 +3,14 @@ game 'gta5'
 
 author 'cool0356'
 description 'Intuitive lib system by Nuxt Lab.'
-version '1.0.0'
+version '0.0.2'
 
-client_script 'client/*.lua'
+files {
+    'collection/*.json',
+    'data/*.lua',
+    'locale/*.lua',
+    'module/**/*.lua'
+}
 
 server_script 'server/*.lua'
 
