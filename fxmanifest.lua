@@ -12,8 +12,6 @@ files {
     'module/**/*.lua'
 }
 
-server_script 'server/*.lua'
-
 shared_script 'shared/*.lua'
 
 lua54 'yes'

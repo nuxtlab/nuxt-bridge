@@ -11,10 +11,10 @@ function cache:set(name, value)
                 cache[name] = value
             end
         else
-            lib.logger:error('37285')
+            lib.logger:error('73921')
         end
     else
-        lib.logger:error('91403')
+        lib.logger:error('50846')
     end
 end
 
@@ -25,10 +25,10 @@ function cache:watch(name, handler)
         if handler and type(handler) == 'function' then
             lib.event:register(('%s:cache:set:%s'):format(lib.name, name), handler)
         else
-            lib.logger:error('50876')
+            lib.logger:error('62478')
         end
     else
-        lib.logger:error('62951')
+        lib.logger:error('91735')
     end
 end
 

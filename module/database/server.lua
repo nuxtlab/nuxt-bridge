@@ -12,7 +12,7 @@ function database:createCollectionIfNotExist(name)
             SaveResourceFile(lib.name, filePath, data, #data)
         end
     else
-        lib.logger:error('74163')
+        lib.logger:error('20694')
     end
 end
 
@@ -33,13 +33,13 @@ function database:insertTableToCollection(name, table)
 
                 SaveResourceFile(lib.name, filePath, data, #data)
             else
-                lib.logger:error('28574')
+                lib.logger:error('38502')
             end
         else
-            lib.logger:error('93610')
+            lib.logger:error('47389')
         end
     else
-        lib.logger:error('40589')
+        lib.logger:error('56207')
     end
 end
 
@@ -73,13 +73,13 @@ function database:deleteTableToCollection(name, query)
 
                 SaveResourceFile(lib.name, filePath, data, #data)
             else
-                lib.logger:error('16837')
+                lib.logger:error('84136')
             end
         else
-            lib.logger:error('52947')
+            lib.logger:error('39524')
         end
     else
-        lib.logger:error('70315')
+        lib.logger:error('67028')
     end
 end
 
@@ -116,16 +116,16 @@ function database:updateTableToCollection(name, query, update)
 
                     SaveResourceFile(lib.name, filePath, data, #data)
                 else
-                    lib.logger:error('81726')
+                    lib.logger:error('12873')
                 end
             else
-                lib.logger:error('46350')
+                lib.logger:error('94317')
             end
         else
-            lib.logger:error('29154')
+            lib.logger:error('57691')
         end
     else
-        lib.logger:error('85602')
+        lib.logger:error('36209')
     end
 end
 
@@ -158,13 +158,13 @@ function database:getTableToCollection(name, query)
 
                 return queryData
             else
-                lib.logger:error('37496')
+                lib.logger:error('81524')
             end
         else
-            lib.logger:error('60591')
+            lib.logger:error('27963')
         end
     else
-        lib.logger:error('24783')
+        lib.logger:error('50437')
     end
 end
 

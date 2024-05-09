@@ -12,7 +12,7 @@ local lib = setmetatable({
 
             return self[index]
         else
-            self.logger:error('50238')
+            self.logger:error('18742')
         end
     end
 })
@@ -34,77 +34,88 @@ function lib:import(resource, path)
                     if module and not error then
                         return module()
                     else
-                        lib.logger:error('71492')
+                        lib.logger:error('50236')
                     end
                 -- else
-                    -- lib.logger:error('36805')
+                    -- lib.logger:error('93614')
                 end
             else
-                lib.logger:error('92641')
+                lib.logger:error('72406')
             end
         else
-            lib.logger:error('59173')
+            lib.logger:error('50389')
         end
     else
-        lib.logger:error('74268')
+        lib.logger:error('61824')
     end
 end
 
 lib.data = setmetatable({}, {
     __index = function (self, index)
+        local payload = {}
         local path = ('data/%s.lua'):format(index)
-        local payload = lib:import(lib.resourceName, path)
+        local chunk = lib:import(lib.resourceName, path)
+        local shared = lib:import(lib.name, path)
 
-        if payload then
+        if chunk then
+            for key, value in pairs(chunk) do
+                payload[key] = value
+            end
+        end
+
+        if shared then
+            for key, value in pairs(shared) do
+                payload[key] = value
+            end
+        end
+
+        if next(payload) then
             self[index] = payload
 
             return self[index]
         else
-            lib.logger:error('76521')
+            lib.logger:error('93756')
+        end
+    end
+})
+
+lib.locale = setmetatable({}, {
+    __index = function (self, index)
+        local path = ('locale/%s.lua'):format(lib.data.config.locale)
+        local payload = lib:import(lib.resourceName, path)
+
+        if payload then
+            self[index] = payload[index]
+
+            return self[index]
+        else
+            lib.logger:error('64513')
+        end
+    end,
+    __call = function (self, index, variables)
+        local string = self[index]
+
+        if string then
+            for match in string:gmatch('@([%w_]+)') do
+                if variables then
+                    if variables[match] then
+                        string = string:gsub(('@%s'):format(match), variables[match])
+                    else
+                        lib.logger:error('95602')
+                    end
+                else
+                    lib.logger:error('85438')
+                end
+            end
+
+            return string
+        else
+            lib.logger:error('65429')
         end
     end
 })
 
 CreateThread(function ()
-    -- Init locale.
-    local locale = lib.data.config.locale
-
-    if locale then
-        local path = ('locale/%s.lua'):format(lib.data.config.locale)
-        local payload = lib:import(lib.resourceName, path)
-
-        if payload then
-            lib.locale = setmetatable(payload, {
-                __call = function (self, index, variables)
-                    local string = self[index]
-
-                    if string then
-                        for match in string:gmatch('@([%w_]+)') do
-                            if variables then
-                                if variables[match] then
-                                    string = string:gsub(('@%s'):format(match), variables[match])
-                                else
-                                    lib.logger:error('72309')
-                                end
-                            else
-                                lib.logger:error('200016')
-                            end
-                        end
-
-                        return string
-                    else
-                        lib.logger:error('52313')
-                    end
-                end
-            })
-        else
-            lib.logger:error('10008')
-        end
-    else
-        lib.logger:error('23481')
-    end
-
-    -- Init framework.
     local framework
 
     for key, value in pairs(lib.data.framework) do
@@ -120,21 +131,17 @@ CreateThread(function ()
             for index, item in pairs(payload) do
                 framework[index] = item
             end
+
+            break
         end
     end
 
     if framework then
-        lib.logger:success('46782')
+        lib.framework = framework
+
+        lib.logger:success('31203', framework.name)
     else
-        lib.logger:error('58273')
-    end
-
-    lib.framework = framework
-
-    if lib.context == 'server' then
-        Wait(100)
-
-        lib.event:trigger('nuxt-lib:server:connect', lib.resourceName)
+        lib.logger:error('42399')
     end
 end)
 

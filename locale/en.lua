@@ -1,3 +1,3 @@
 return {
-    welcomeMessage = 'Welcome to Nuxt Lab!'
+    resourceStarted = '@resourceName started!!'
 }

@@ -1,3 +1,4 @@
 return {
-    locale = 'en'
+    locale = 'en',
+    debugMode = true
 }

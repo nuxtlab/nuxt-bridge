@@ -9,7 +9,7 @@ function logger:inform(...)
 
         print(formattedText)
     else
-        lib.logger:error('84062')
+        lib.logger:error('39456')
     end
 end
 
@@ -22,7 +22,7 @@ function logger:success(...)
 
         print(formattedText)
     else
-        lib.logger:error('19528')
+        lib.logger:error('87023')
     end
 end
 
@@ -35,7 +35,7 @@ function logger:error(...)
 
         print(formattedText)
     else
-        lib.logger:error('63704')
+        lib.logger:error('56139')
     end
 end
 

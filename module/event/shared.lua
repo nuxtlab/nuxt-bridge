@@ -21,10 +21,10 @@ function event:register(name, handler)
                 end
             end)
         else
-            lib.logger:error('31948')
+            lib.logger:error('69715')
         end
     else
-        lib.logger:error('56873')
+        lib.logger:error('83106')
     end
 end
 
@@ -45,7 +45,7 @@ function event:trigger(name, ...)
 
         return table.unpack(Citizen.Await(promise))
     else
-        lib.logger:error('97025')
+        lib.logger:error('45279')
     end
 end
 
@@ -67,9 +67,8 @@ if lib.context == 'client' then
 
             return table.unpack(Citizen.Await(promise))
         else
-            lib.logger:error('18574')
+            lib.logger:error('72681')
         end
-
     end
 else
     ---@param name string
@@ -91,10 +90,10 @@ else
 
                 return table.unpack(Citizen.Await(promise))
             else
-                lib.logger:error('42697')
+                lib.logger:error('63942')
             end
         else
-            lib.logger:error('75301')
+            lib.logger:error('21578')
         end
     end
 end
