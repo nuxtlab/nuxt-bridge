@@ -14,4 +14,5 @@ files {
 
 shared_script 'shared/*.lua'
 
+use_experimental_fxv2_oal 'yes'
 lua54 'yes'
