@@ -3,7 +3,7 @@ game 'gta5'
 
 author 'cool0356'
 description 'Intuitive lib system by Nuxt Lab.'
-version '0.0.3'
+version '0.0.4'
 
 files {
     'collection/*.json',
