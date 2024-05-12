@@ -12,7 +12,10 @@ local lib = setmetatable({
 
             return self[index]
         else
-            self.logger:error('18742')
+            self.logger:error(self.locale('element_not_fount_in_object', {
+                element = index,
+                object = 'lib'
+            }))
         end
     end
 })
@@ -34,19 +37,31 @@ function lib:import(resource, path)
                     if module and not error then
                         return module()
                     else
-                        lib.logger:error('50236')
+                        lib.logger:error(lib.locale('module_failed_to_run', {
+                            module = path,
+                            resource = resource
+                        }))
                     end
                 -- else
-                    -- lib.logger:error('93614')
+                    -- lib.logger:error(lib.locale('module_not_found', {
+                    --     module = path,
+                    --     resource = resource
+                    -- }))
                 end
             else
-                lib.logger:error('72406')
+                lib.logger:error(lib.locale('uninitialized_resource_used'))
             end
         else
-            lib.logger:error('50389')
+            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                param = 'path',
+                func = 'lib:import()'
+            }))
         end
     else
-        lib.logger:error('61824')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = 'resource',
+            func = 'lib:import()'
+        }))
     end
 end
 
@@ -74,7 +89,10 @@ lib.data = setmetatable({}, {
 
             return self[index]
         else
-            lib.logger:error('93756')
+            lib.logger:error(lib.locale('element_not_fount_in_object', {
+                element = index,
+                object = 'lib.data'
+            }))
         end
     end
 })
@@ -89,7 +107,7 @@ lib.locale = setmetatable({}, {
 
             return self[index]
         else
-            lib.logger:error('64513')
+            lib.logger:error(('Locale "%s" not found.'):format(lib.data.config.locale))
         end
     end,
     __call = function (self, index, variables)
@@ -101,16 +119,24 @@ lib.locale = setmetatable({}, {
                     if variables[match] then
                         string = string:gsub(('@%s'):format(match), variables[match])
                     else
-                        lib.logger:error('95602')
+                        lib.logger:error(lib.locale('locale_variable_not_found', {
+                            variable = match,
+                            locale = index
+                        }))
                     end
                 else
-                    lib.logger:error('85438')
+                    lib.logger:error(lib.locale('locale_variables_not_found', {
+                        locale = index
+                    }))
                 end
             end
 
             return string
         else
-            lib.logger:error('65429')
+            lib.logger:error(lib.locale('locale_param_not_found', {
+                param = index,
+                locale = locale
+            }))
         end
     end
 })
@@ -139,9 +165,11 @@ CreateThread(function ()
     if framework then
         lib.framework = framework
 
-        lib.logger:success('31203', framework.name)
+        lib.logger:success(lib.locale('framework_found', {
+            framework = lib.framework.name
+        }))
     else
-        lib.logger:error('42399')
+        lib.logger:error(lib.locale('framework_not_found'))
     end
 end)
 

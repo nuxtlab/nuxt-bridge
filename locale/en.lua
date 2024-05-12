@@ -1,3 +1,15 @@
 return {
-    resourceStarted = '@resourceName started!!'
+    cache_value_not_found = 'No "value" found when using the "lib.cache:set()" for "@cache".',
+    collection_not_found = 'Collection "@collection" not found when using "@func".',
+    element_not_fount_in_object = '"@element" element not found in "@object" object.',
+    framework_found = '"@framework" framework successfully loaded.',
+    framework_not_found = 'No framework found to load.',
+    locale_param_not_found = 'The parameter "@param" was not found in "@locale".',
+    locale_variable_not_found = 'Variable "@variable" was not found when using "lib.locale()" for "@locale".',
+    locale_variables_not_found = 'Variables was not found when using "lib.locale()" for "@locale".',
+    module_failed_to_run = 'Failed to run module "@module" from source "@resource" when using "lib:import()".',
+    module_not_found = 'Module "@module" was not found in resource "@resource" when using "lib:import()".',
+    param_not_found = '"@param" not found when using the "@func".',
+    param_not_found_or_incorrect_type = '"@param" parameter was not found or type not correct when using "@func".',
+    uninitialized_resource_used = 'An uninitialized resource was used when using "lib:import()".',
 }

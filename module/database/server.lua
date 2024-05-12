@@ -12,7 +12,10 @@ function database:createCollectionIfNotExist(name)
             SaveResourceFile(lib.name, filePath, data, #data)
         end
     else
-        lib.logger:error('20694')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = 'name',
+            func = 'lib.database:createCollectionIfNotExist()'
+        }))
     end
 end
 
@@ -33,13 +36,22 @@ function database:insertTableToCollection(name, table)
 
                 SaveResourceFile(lib.name, filePath, data, #data)
             else
-                lib.logger:error('38502')
+                lib.logger:error(lib.locale('collection_not_found', {
+                    collection = name,
+                    func = 'lib.database:insertTableToCollection()'
+                }))
             end
         else
-            lib.logger:error('47389')
+            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                param = 'table',
+                func = 'lib.database:insertTableToCollection()'
+            }))
         end
     else
-        lib.logger:error('56207')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = 'name',
+            func = 'lib.database:insertTableToCollection()'
+        }))
     end
 end
 
@@ -73,13 +85,22 @@ function database:deleteTableToCollection(name, query)
 
                 SaveResourceFile(lib.name, filePath, data, #data)
             else
-                lib.logger:error('84136')
+                lib.logger:error(lib.locale('collection_not_found', {
+                    collection = name,
+                    func = 'lib.database:deleteTableToCollection()'
+                }))
             end
         else
-            lib.logger:error('39524')
+            lib.logger:error(lib.locale('collection_not_found', {
+                collection = name,
+                func = 'lib.database:deleteTableToCollection()'
+            }))
         end
     else
-        lib.logger:error('67028')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = 'query',
+            func = 'lib.database:deleteTableToCollection()'
+        }))
     end
 end
 
@@ -116,16 +137,28 @@ function database:updateTableToCollection(name, query, update)
 
                     SaveResourceFile(lib.name, filePath, data, #data)
                 else
-                    lib.logger:error('12873')
+                    lib.logger:error(lib.locale('collection_not_found', {
+                        collection = name,
+                        func = 'lib.database:updateTableToCollection()'
+                    }))
                 end
             else
-                lib.logger:error('94317')
+                lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                    param = 'update',
+                    func = 'lib.database:updateTableToCollection()'
+                }))
             end
         else
-            lib.logger:error('57691')
+            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                param = 'query',
+                func = 'lib.database:updateTableToCollection()'
+            }))
         end
     else
-        lib.logger:error('36209')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = 'name',
+            func = 'lib.database:updateTableToCollection()'
+        }))
     end
 end
 
@@ -158,13 +191,22 @@ function database:getTableToCollection(name, query)
 
                 return queryData
             else
-                lib.logger:error('81524')
+                lib.logger:error(lib.locale('collection_not_found', {
+                    collection = name,
+                    func = 'lib.database:getTableToCollection()'
+                }))
             end
         else
-            lib.logger:error('27963')
+            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                param = 'query',
+                func = 'lib.database:getTableToCollection()'
+            }))
         end
     else
-        lib.logger:error('50437')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = 'name',
+            func = 'lib.database:getTableToCollection()'
+        }))
     end
 end
 

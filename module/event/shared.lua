@@ -21,10 +21,16 @@ function event:register(name, handler)
                 end
             end)
         else
-            lib.logger:error('69715')
+            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                param = 'handler',
+                func = 'lib.event:register()'
+            }))
         end
     else
-        lib.logger:error('83106')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = 'name',
+            func = 'lib.event:register()'
+        }))
     end
 end
 
@@ -45,7 +51,10 @@ function event:trigger(name, ...)
 
         return table.unpack(Citizen.Await(promise))
     else
-        lib.logger:error('45279')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = 'name',
+            func = 'lib.event:trigger()'
+        }))
     end
 end
 
@@ -67,7 +76,10 @@ if lib.context == 'client' then
 
             return table.unpack(Citizen.Await(promise))
         else
-            lib.logger:error('72681')
+            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                param = 'name',
+                func = 'lib.event:triggerServer()'
+            }))
         end
     end
 else
@@ -90,10 +102,16 @@ else
 
                 return table.unpack(Citizen.Await(promise))
             else
-                lib.logger:error('63942')
+                lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                    param = 'source',
+                    func = 'lib.event:triggerClient()'
+                }))
             end
         else
-            lib.logger:error('21578')
+            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                param = 'name',
+                func = 'lib.event:triggerClient()'
+            }))
         end
     end
 end

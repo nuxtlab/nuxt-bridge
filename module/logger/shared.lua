@@ -9,7 +9,10 @@ function logger:inform(...)
 
         print(formattedText)
     else
-        lib.logger:error('39456')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = '...',
+            func = 'lib.logger:inform()'
+        }))
     end
 end
 
@@ -22,7 +25,10 @@ function logger:success(...)
 
         print(formattedText)
     else
-        lib.logger:error('87023')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = '...',
+            func = 'lib.logger:success()'
+        }))
     end
 end
 
@@ -35,7 +41,10 @@ function logger:error(...)
 
         print(formattedText)
     else
-        lib.logger:error('56139')
+        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            param = '...',
+            func = 'lib.logger:error()'
+        }))
     end
 end
 

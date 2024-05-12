@@ -11,10 +11,15 @@ function cache:set(name, value)
                 cache[name] = value
             end
         else
-            lib.logger:error('73921')
+            lib.logger:error(lib.locale('cache_value_not_found', {
+                cache = name
+            }))
         end
     else
-        lib.logger:error('50846')
+        lib.logger:error(lib.locale('param_not_found', {
+            param = 'name',
+            func = 'lib.cache:set()'
+        }))
     end
 end
 
@@ -25,10 +30,16 @@ function cache:watch(name, handler)
         if handler and type(handler) == 'function' then
             lib.event:register(('%s:cache:set:%s'):format(lib.name, name), handler)
         else
-            lib.logger:error('62478')
+            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                param = 'handler',
+                func = 'lib.cache:watch()'
+            }))
         end
     else
-        lib.logger:error('91735')
+        lib.logger:error(lib.locale('param_not_found', {
+            param = 'name',
+            func = 'lib.cache:watch()'
+        }))
     end
 end
 
