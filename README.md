@@ -6,4 +6,4 @@ Intuitive lib system by Nuxt Lab.
 
 ## Contact Us
 
-Join our [Discord](https://discord.gg/fcNrD3XNdv) for updates, support and special discounts!
+Join our [Discord Server](https://discord.gg/fcNrD3XNdv) for updates, support and special discounts!
