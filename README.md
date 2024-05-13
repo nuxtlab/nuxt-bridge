@@ -1,4 +1,4 @@
-![Banner]([https://cdn.dont-ping.me/api/✌️🐭👋🤘👻.png](https://nuxtlab.net/api/files/github_banner-K00eZM3AJl3ek01AFl7AyG8haViBYN.png))
+![Banner](https://nuxtlab.net/api/files/github_banner-K00eZM3AJl3ek01AFl7AyG8haViBYN.png)
 
 # Intuitive Lib System
 
