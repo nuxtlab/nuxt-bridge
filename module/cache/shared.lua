@@ -6,19 +6,19 @@ function cache:set(name, value)
     if name and type(name) == 'string' then
         if value then
             if value ~= cache[name] then
-                lib.event:trigger(('%s:cache:set:%s'):format(lib.name, name), value, cache[name])
+                bridge.event:trigger(('%s:cache:set:%s'):format(bridge.name, name), value, cache[name])
 
                 cache[name] = value
             end
         else
-            lib.logger:error(lib.locale('cache_value_not_found', {
+            bridge.logger:error(bridge.locale('cache_value_not_found', {
                 cache = name
             }))
         end
     else
-        lib.logger:error(lib.locale('param_not_found', {
+        bridge.logger:error(bridge.locale('param_not_found', {
             param = 'name',
-            func = 'lib.cache:set()'
+            func = 'bridge.cache:set()'
         }))
     end
 end
@@ -28,17 +28,17 @@ end
 function cache:watch(name, handler)
     if name and type(name) == 'string' then
         if handler and type(handler) == 'function' then
-            lib.event:register(('%s:cache:set:%s'):format(lib.name, name), handler)
+            bridge.event:register(('%s:cache:set:%s'):format(bridge.name, name), handler)
         else
-            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
                 param = 'handler',
-                func = 'lib.cache:watch()'
+                func = 'bridge.cache:watch()'
             }))
         end
     else
-        lib.logger:error(lib.locale('param_not_found', {
+        bridge.logger:error(bridge.locale('param_not_found', {
             param = 'name',
-            func = 'lib.cache:watch()'
+            func = 'bridge.cache:watch()'
         }))
     end
 end

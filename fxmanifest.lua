@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 author 'cool0356'
-description 'Intuitive lib system by Nuxt Lab.'
+description 'Intuitive bridge system by Nuxt Lab.'
 version '0.0.4'
 
 files {

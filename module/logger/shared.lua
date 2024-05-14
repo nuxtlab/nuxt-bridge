@@ -9,9 +9,9 @@ function logger:inform(...)
 
         print(formattedText)
     else
-        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+        bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
             param = '...',
-            func = 'lib.logger:inform()'
+            func = 'bridge.logger:inform()'
         }))
     end
 end
@@ -25,9 +25,9 @@ function logger:success(...)
 
         print(formattedText)
     else
-        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+        bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
             param = '...',
-            func = 'lib.logger:success()'
+            func = 'bridge.logger:success()'
         }))
     end
 end
@@ -41,9 +41,9 @@ function logger:error(...)
 
         print(formattedText)
     else
-        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+        bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
             param = '...',
-            func = 'lib.logger:error()'
+            func = 'bridge.logger:error()'
         }))
     end
 end

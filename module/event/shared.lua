@@ -5,7 +5,7 @@ local event = {}
 function event:register(name, handler)
     if name and type(name) == 'string' then
         if handler and type(handler) == 'function' then
-            local eventName = ('%s:event:%s'):format(lib.name, name)
+            local eventName = ('%s:event:%s'):format(bridge.name, name)
 
             RegisterNetEvent(eventName, function (callback, ...)
                 local payload = { handler(...) }
@@ -13,7 +13,7 @@ function event:register(name, handler)
                 if callback then
                     callback(table.unpack(payload))
                 else
-                    if lib.context == 'client' then
+                    if bridge.context == 'client' then
                         TriggerServerEvent(eventName, table.unpack(payload))
                     else
                         TriggerClientEvent(eventName, source, table.unpack(payload))
@@ -21,15 +21,15 @@ function event:register(name, handler)
                 end
             end)
         else
-            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
                 param = 'handler',
-                func = 'lib.event:register()'
+                func = 'bridge.event:register()'
             }))
         end
     else
-        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+        bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
             param = 'name',
-            func = 'lib.event:register()'
+            func = 'bridge.event:register()'
         }))
     end
 end
@@ -45,20 +45,20 @@ function event:trigger(name, ...)
             promise:resolve({ ... })
         end
 
-        local eventName = ('%s:event:%s'):format(lib.name, name)
+        local eventName = ('%s:event:%s'):format(bridge.name, name)
 
         TriggerEvent(eventName, callback, ...)
 
         return table.unpack(Citizen.Await(promise))
     else
-        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+        bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
             param = 'name',
-            func = 'lib.event:trigger()'
+            func = 'bridge.event:trigger()'
         }))
     end
 end
 
-if lib.context == 'client' then
+if bridge.context == 'client' then
     ---@param name string
     ---@param ... any
     ---@return any?
@@ -66,7 +66,7 @@ if lib.context == 'client' then
         if name and type(name) == 'string' then
             local promise = promise:new()
 
-            local eventName = ('%s:event:%s'):format(lib.name, name)
+            local eventName = ('%s:event:%s'):format(bridge.name, name)
 
             RegisterNetEvent(eventName, function (...)
                 promise:resolve({ ... })
@@ -76,9 +76,9 @@ if lib.context == 'client' then
 
             return table.unpack(Citizen.Await(promise))
         else
-            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
                 param = 'name',
-                func = 'lib.event:triggerServer()'
+                func = 'bridge.event:triggerServer()'
             }))
         end
     end
@@ -92,7 +92,7 @@ else
             if source and type(source) == 'number' then
                 local promise = promise:new()
 
-                local eventName = ('%s:event:%s'):format(lib.name, name)
+                local eventName = ('%s:event:%s'):format(bridge.name, name)
 
                 RegisterNetEvent(eventName, function (...)
                     promise:resolve({ ... })
@@ -102,15 +102,15 @@ else
 
                 return table.unpack(Citizen.Await(promise))
             else
-                lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+                bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
                     param = 'source',
-                    func = 'lib.event:triggerClient()'
+                    func = 'bridge.event:triggerClient()'
                 }))
             end
         else
-            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
                 param = 'name',
-                func = 'lib.event:triggerClient()'
+                func = 'bridge.event:triggerClient()'
             }))
         end
     end

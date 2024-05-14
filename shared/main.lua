@@ -1,5 +1,5 @@
-local lib = setmetatable({
-    name = 'nuxt-lib',
+local bridge = setmetatable({
+    name = 'nuxt-bridge',
     resourceName = GetCurrentResourceName(),
     context = IsDuplicityVersion() and 'server' or 'client'
 }, {
@@ -14,7 +14,7 @@ local lib = setmetatable({
         else
             self.logger:error(self.locale('element_not_fount_in_object', {
                 element = index,
-                object = 'lib'
+                object = 'bridge'
             }))
         end
     end
@@ -23,7 +23,7 @@ local lib = setmetatable({
 ---@param resource string
 ---@param path string
 ---@return any
-function lib:import(resource, path)
+function bridge:import(resource, path)
     if resource and type(resource) == 'string' then
         if path and type(path) == 'string' then
             local resourceState = GetResourceState(resource)
@@ -37,40 +37,40 @@ function lib:import(resource, path)
                     if module and not error then
                         return module()
                     else
-                        lib.logger:error(lib.locale('module_failed_to_run', {
+                        bridge.logger:error(bridge.locale('module_failed_to_run', {
                             module = path,
                             resource = resource
                         }))
                     end
                 -- else
-                    -- lib.logger:error(lib.locale('module_not_found', {
+                    -- bridge.logger:error(bridge.locale('module_not_found', {
                     --     module = path,
                     --     resource = resource
                     -- }))
                 end
             else
-                lib.logger:error(lib.locale('uninitialized_resource_used'))
+                bridge.logger:error(bridge.locale('uninitialized_resource_used'))
             end
         else
-            lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+            bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
                 param = 'path',
-                func = 'lib:import()'
+                func = 'bridge:import()'
             }))
         end
     else
-        lib.logger:error(lib.locale('param_not_found_or_incorrect_type', {
+        bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
             param = 'resource',
-            func = 'lib:import()'
+            func = 'bridge:import()'
         }))
     end
 end
 
-lib.data = setmetatable({}, {
+bridge.data = setmetatable({}, {
     __index = function (self, index)
         local payload = {}
         local path = ('data/%s.lua'):format(index)
-        local chunk = lib:import(lib.resourceName, path)
-        local shared = lib:import(lib.name, path)
+        local chunk = bridge:import(bridge.resourceName, path)
+        local shared = bridge:import(bridge.name, path)
 
         if chunk then
             for key, value in pairs(chunk) do
@@ -89,25 +89,25 @@ lib.data = setmetatable({}, {
 
             return self[index]
         else
-            lib.logger:error(lib.locale('element_not_fount_in_object', {
+            bridge.logger:error(bridge.locale('element_not_fount_in_object', {
                 element = index,
-                object = 'lib.data'
+                object = 'bridge.data'
             }))
         end
     end
 })
 
-lib.locale = setmetatable({}, {
+bridge.locale = setmetatable({}, {
     __index = function (self, index)
-        local path = ('locale/%s.lua'):format(lib.data.config.locale)
-        local payload = lib:import(lib.resourceName, path)
+        local path = ('locale/%s.lua'):format(bridge.data.config.locale)
+        local payload = bridge:import(bridge.resourceName, path)
 
         if payload then
             self[index] = payload[index]
 
             return self[index]
         else
-            lib.logger:error(('Locale "%s" not found.'):format(lib.data.config.locale))
+            bridge.logger:error(('Locale "%s" not found.'):format(bridge.data.config.locale))
         end
     end,
     __call = function (self, index, variables)
@@ -119,13 +119,13 @@ lib.locale = setmetatable({}, {
                     if variables[match] then
                         string = string:gsub(('@%s'):format(match), variables[match])
                     else
-                        lib.logger:error(lib.locale('locale_variable_not_found', {
+                        bridge.logger:error(bridge.locale('locale_variable_not_found', {
                             variable = match,
                             locale = index
                         }))
                     end
                 else
-                    lib.logger:error(lib.locale('locale_variables_not_found', {
+                    bridge.logger:error(bridge.locale('locale_variables_not_found', {
                         locale = index
                     }))
                 end
@@ -133,9 +133,9 @@ lib.locale = setmetatable({}, {
 
             return string
         else
-            lib.logger:error(lib.locale('locale_param_not_found', {
+            bridge.logger:error(bridge.locale('locale_param_not_found', {
                 param = index,
-                locale = locale
+                locale = bridge.data.config.locale
             }))
         end
     end
@@ -144,7 +144,7 @@ lib.locale = setmetatable({}, {
 CreateThread(function ()
     local framework
 
-    for key, value in pairs(lib.data.framework) do
+    for key, value in pairs(bridge.data.framework) do
         local resourceState = GetResourceState(value.resourceName)
 
         if resourceState == 'started' then
@@ -163,14 +163,14 @@ CreateThread(function ()
     end
 
     if framework then
-        lib.framework = framework
+        bridge.framework = framework
 
-        lib.logger:success(lib.locale('framework_found', {
-            framework = lib.framework.name
+        bridge.logger:success(bridge.locale('framework_found', {
+            framework = bridge.framework.name
         }))
     else
-        lib.logger:error(lib.locale('framework_not_found'))
+        bridge.logger:error(bridge.locale('framework_not_found'))
     end
 end)
 
-_ENV.lib = lib
+_ENV.bridge = bridge

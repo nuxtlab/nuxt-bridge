@@ -1,8 +1,8 @@
 ![Banner](https://nuxtlab.net/api/files/github_banner-K00eZM3AJl3ek01AFl7AyG8haViBYN.png)
 
-# Intuitive Lib System
+# Intuitive Bridge System
 
-Intuitive lib system by Nuxt Lab.
+Intuitive bridge system by Nuxt Lab.
 
 ## Contact Us
 
