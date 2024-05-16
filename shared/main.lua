@@ -99,11 +99,21 @@ bridge.data = setmetatable({}, {
 
 bridge.locale = setmetatable({}, {
     __index = function (self, index)
+        local payload
         local path = ('locale/%s.lua'):format(bridge.data.config.locale)
-        local payload = bridge:import(bridge.resourceName, path)
+        local chunk = bridge:import(bridge.resourceName, path)
+        local shared = bridge:import(bridge.name, path)
+
+        if chunk and chunk[index] then
+            payload = chunk[index]
+        end
+
+        if shared and shared[index] then
+            payload = shared[index]
+        end
 
         if payload then
-            self[index] = payload[index]
+            self[index] = payload
 
             return self[index]
         else
