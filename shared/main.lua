@@ -172,14 +172,18 @@ CreateThread(function ()
         end
     end
 
-    if framework then
-        bridge.framework = framework
-
-        bridge.logger:success(bridge.locale('framework_found', {
-            framework = bridge.framework.name
-        }))
+    if bridge.context == 'client' then
+        -- TODO: useLocale
     else
-        bridge.logger:error(bridge.locale('framework_not_found'))
+        if framework then
+            bridge.framework = framework
+
+            bridge.logger:success(bridge.locale('framework_found', {
+                framework = bridge.framework.name
+            }))
+        else
+            bridge.logger:error(bridge.locale('framework_not_found'))
+        end
     end
 end)
 
