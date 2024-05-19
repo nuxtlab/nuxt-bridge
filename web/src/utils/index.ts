@@ -20,9 +20,7 @@ export const fetchNui = async (name: string, data?: object) => {
     return formattedResponse
 }
 
-export const useNuiEvent = (
-    handler: (event: { action: string; data?: object }) => void
-) => {
+export const useNuiEvent = (handler: (event: { action: string; data?: object }) => void) => {
     const eventListener = ({ data }: MessageEvent) => handler(data)
 
     window.onload = () => window.addEventListener('message', eventListener)

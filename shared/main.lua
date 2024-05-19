@@ -174,6 +174,11 @@ CreateThread(function ()
 
     if bridge.context == 'client' then
         -- TODO: useLocale
+        RegisterNuiCallback('useLocale', function (data, callback)
+            print(json.encode(data))
+
+            -- callback('am31acu')
+        end)
     else
         if framework then
             bridge.framework = framework

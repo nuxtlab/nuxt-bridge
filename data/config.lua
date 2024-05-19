@@ -1,4 +1,3 @@
 return {
-    locale = 'en',
-    debugMode = true
+    locale = 'en'
 }
