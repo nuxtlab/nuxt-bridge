@@ -177,7 +177,7 @@ CreateThread(function ()
         RegisterNuiCallback('useLocale', function (data, callback)
             print(json.encode(data))
 
-            -- callback('am31acu')
+            -- callback('OK')
         end)
     else
         if framework then

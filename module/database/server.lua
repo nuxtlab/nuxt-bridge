@@ -20,17 +20,17 @@ function database:createCollectionIfNotExist(name)
 end
 
 ---@param name string
----@param table table
-function database:insertTableToCollection(name, table)
+---@param payload table
+function database:insertTableToCollection(name, payload)
     if name and type(name) == 'string' then
-        if table and type(table) == 'table' then
+        if payload and type(payload) == 'table' then
             local filePath = ('collection/%s.json'):format(name)
             local collectionFile = LoadResourceFile(bridge.name, filePath)
 
             if collectionFile then
                 local collectionData = json.decode(collectionFile)
 
-                collectionData[#collectionData+1] = table
+                table.insert(collectionData, payload)
 
                 local data = json.encode(collectionData, { indent = true })
 
@@ -68,16 +68,29 @@ function database:deleteTableToCollection(name, query)
                 local queryData = {}
 
                 for key, value in pairs(collectionData) do
-                    local retval = true
+                    local matches = true
+                    local stack = {{ data = value, query = query }}
 
-                    for k, v in pairs(query) do
-                        if value[k] ~= v then
-                            retval = false
+                    repeat
+                        local current = table.remove(stack)
+
+                        for k, v in pairs(current.query) do
+                            if type(v) == 'table' and type(current.data[k]) == 'table' then
+                                table.insert(stack, { data = current.data[k], query = v })
+                            elseif current.data[k] ~= v then
+                                matches = false
+
+                                break
+                            end
                         end
-                    end
 
-                    if not retval then
-                        queryData[#queryData+1] = value
+                        if not matches then
+                            break
+                        end
+                    until #stack == 0
+
+                    if not matches then
+                        table.insert(queryData, value)
                     end
                 end
 
@@ -118,18 +131,41 @@ function database:updateTableToCollection(name, query, update)
                     local collectionData = json.decode(collectionFile)
 
                     for key, value in pairs(collectionData) do
-                        local retval = true
+                        local matches = true
+                        local stack = {{ data = value, query = query }}
 
-                        for k, v in pairs(query) do
-                            if value[k] ~= v then
-                                retval = false
-                            end
-                        end
+                        repeat
+                            local current = table.remove(stack)
 
-                        if retval then
-                            for k, v in pairs(update) do
-                                value[k] = v
+                            for k, v in pairs(current.query) do
+                                if type(v) == 'table' and type(current.data[k]) == 'table' then
+                                    table.insert(stack, { data = current.data[k], query = v })
+                                elseif current.data[k] ~= v then
+                                    matches = false
+
+                                    break
+                                end
                             end
+
+                            if not matches then
+                                break
+                            end
+                        until #stack == 0
+
+                        if matches then
+                            local updateStack = {{ data = value, updates = update }}
+
+                            repeat
+                                local currentUpdate = table.remove(updateStack)
+
+                                for k, v in pairs(currentUpdate.updates) do
+                                    if type(v) == 'table' and type(currentUpdate.data[k]) == 'table' then
+                                        table.insert(updateStack, { data = currentUpdate.data[k], updates = v })
+                                    else
+                                        currentUpdate.data[k] = v
+                                    end
+                                end
+                            until #updateStack == 0
                         end
                     end
 
@@ -176,16 +212,29 @@ function database:getTableToCollection(name, query)
                 local collectionData = json.decode(collectionFile)
 
                 for key, value in pairs(collectionData) do
-                    local retval = true
+                    local matches = true
+                    local stack = {{ data = value, query = query }}
 
-                    for k, v in pairs(query) do
-                        if value[k] ~= v then
-                            retval = false
+                    repeat
+                        local current = table.remove(stack)
+
+                        for k, v in pairs(current.query) do
+                            if type(v) == 'table' and type(current.data[k]) == 'table' then
+                                table.insert(stack, { data = current.data[k], query = v })
+                            elseif current.data[k] ~= v then
+                                matches = false
+
+                                break
+                            end
                         end
-                    end
 
-                    if retval then
-                        queryData[#queryData+1] = value
+                        if not matches then
+                            break
+                        end
+                    until #stack == 0
+
+                    if matches then
+                        queryData[#queryData + 1] = value
                     end
                 end
 
