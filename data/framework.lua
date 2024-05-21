@@ -2,33 +2,44 @@ return {
     esx = {
         resourceName = 'es_extended',
         init = function ()
+            local payload = {}
+
             -- TODO
 
-            return {}
+            return payload
         end
     },
     qb = {
         resourceName = 'qb-core',
         init = function ()
-            -- TODO
+            local payload = exports['qb-core']:GetCoreObject()
 
-            return {}
+            payload.object = {
+                player = {
+                    PlayerData = {
+                        source = 'source',
+                        citizenid = 'identifier',
+                        charinfo = {
+                            firstname = 'firstname',
+                            lastname = 'lastname'
+                        }
+                    }
+                }
+            }
+
+            -- TODO: Eventler.
+
+            return payload
         end
     },
     ox = {
         resourceName = 'ox_core',
         init = function ()
+            local payload = {}
+
             -- TODO
 
-            return {}
+            return payload
         end
-    },
-    qbx = {
-        resourceName = 'qbx-core',
-        init = function ()
-            -- TODO
-
-            return {}
-        end
-    },
+    }
 }

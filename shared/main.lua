@@ -65,6 +65,14 @@ function bridge:import(resource, path)
     end
 end
 
+---@param data table
+---@param from table
+---@param to table
+---@return table
+function bridge:transform(data, from, to)
+    return {}
+end
+
 bridge.data = setmetatable({}, {
     __index = function (self, index)
         local payload = {}
