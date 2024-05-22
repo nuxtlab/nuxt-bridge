@@ -14,7 +14,7 @@ return {
         init = function ()
             local payload = exports['qb-core']:GetCoreObject()
 
-            payload.object = {
+            payload.schema = {
                 player = {
                     PlayerData = {
                         source = 'source',

@@ -30,7 +30,7 @@ function database:insertTableToCollection(name, payload)
             if collectionFile then
                 local collectionData = json.decode(collectionFile)
 
-                table.insert(collectionData, payload)
+                collectionData[#collectionData+1] = payload
 
                 local data = json.encode(collectionData, { indent = true })
 
@@ -69,14 +69,14 @@ function database:deleteTableToCollection(name, query)
 
                 for key, value in pairs(collectionData) do
                     local matches = true
-                    local stack = {{ data = value, query = query }}
+                    local stack = { { data = value, query = query } }
 
                     repeat
                         local current = table.remove(stack)
 
                         for k, v in pairs(current.query) do
                             if type(v) == 'table' and type(current.data[k]) == 'table' then
-                                table.insert(stack, { data = current.data[k], query = v })
+                                stack[#stack+1] = { data = current.data[k], query = v }
                             elseif current.data[k] ~= v then
                                 matches = false
 
@@ -90,7 +90,7 @@ function database:deleteTableToCollection(name, query)
                     until #stack == 0
 
                     if not matches then
-                        table.insert(queryData, value)
+                        queryData[#queryData+1] = value
                     end
                 end
 
@@ -132,14 +132,14 @@ function database:updateTableToCollection(name, query, update)
 
                     for key, value in pairs(collectionData) do
                         local matches = true
-                        local stack = {{ data = value, query = query }}
+                        local stack = { { data = value, query = query } }
 
                         repeat
                             local current = table.remove(stack)
 
                             for k, v in pairs(current.query) do
                                 if type(v) == 'table' and type(current.data[k]) == 'table' then
-                                    table.insert(stack, { data = current.data[k], query = v })
+                                    stack[#stack+1] = { data = current.data[k], query = v }
                                 elseif current.data[k] ~= v then
                                     matches = false
 
@@ -153,14 +153,14 @@ function database:updateTableToCollection(name, query, update)
                         until #stack == 0
 
                         if matches then
-                            local updateStack = {{ data = value, updates = update }}
+                            local updateStack = { { data = value, updates = update } }
 
                             repeat
                                 local currentUpdate = table.remove(updateStack)
 
                                 for k, v in pairs(currentUpdate.updates) do
                                     if type(v) == 'table' and type(currentUpdate.data[k]) == 'table' then
-                                        table.insert(updateStack, { data = currentUpdate.data[k], updates = v })
+                                        updateStack[#updateStack+1] = { data = currentUpdate.data[k], updates = v }
                                     else
                                         currentUpdate.data[k] = v
                                     end
@@ -213,14 +213,14 @@ function database:getTableToCollection(name, query)
 
                 for key, value in pairs(collectionData) do
                     local matches = true
-                    local stack = {{ data = value, query = query }}
+                    local stack = { { data = value, query = query } }
 
                     repeat
                         local current = table.remove(stack)
 
                         for k, v in pairs(current.query) do
                             if type(v) == 'table' and type(current.data[k]) == 'table' then
-                                table.insert(stack, { data = current.data[k], query = v })
+                                stack[#stack+1] = { data = current.data[k], query = v }
                             elseif current.data[k] ~= v then
                                 matches = false
 

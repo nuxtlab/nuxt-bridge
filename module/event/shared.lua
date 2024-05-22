@@ -8,15 +8,15 @@ function event:register(name, handler)
             local eventName = ('%s:event:%s'):format(bridge.name, name)
 
             RegisterNetEvent(eventName, function (callback, ...)
-                local payload = { handler(...) }
+                local stack = { handler(...) }
 
                 if callback then
-                    callback(table.unpack(payload))
+                    callback(table.unpack(stack))
                 else
                     if bridge.context == 'client' then
-                        TriggerServerEvent(eventName, table.unpack(payload))
+                        TriggerServerEvent(eventName, table.unpack(stack))
                     else
-                        TriggerClientEvent(eventName, source, table.unpack(payload))
+                        TriggerClientEvent(eventName, source, table.unpack(stack))
                     end
                 end
             end)

@@ -1,0 +1,52 @@
+[
+    {
+        "identifier": "AM31CU",
+        "source": "PEMBE_AM",
+        "charinfo": {
+            "firstname": "Jhon",
+            "lastname": "Doe",
+            "metadata": {
+                "money": {
+                    "cash": 4000,
+                    "bank": 20000
+                }
+            }
+        },
+        "job": {
+            "name": "police",
+            "grade": {
+                "level": 5,
+                "name": "PEMBE_AM",
+                "sex": {
+                    "var": true,
+                    "kimle": "sikA"
+                }
+            }
+        }
+    },
+    {
+        "identifier": "ASD3Q7",
+        "source": "PEMBE_AM",
+        "charinfo": {
+            "firstname": "Mark",
+            "lastname": "Edward",
+            "metadata": {
+                "money": {
+                    "cash": 4000,
+                    "bank": 20000
+                }
+            }
+        },
+        "job": {
+            "name": "police",
+            "grade": {
+                "level": 5,
+                "name": "PEMBE_AM",
+                "sex": {
+                    "var": false,
+                    "kimle": "am"
+                }
+            }
+        }
+    }
+]

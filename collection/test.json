@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "am": {
+            "meme": {
+                "renk": {
+                    "neresi": {
+                        "color": "MAVIA",
+                        "am": false
+                    }
+                }
+            }
+        }
+    },
+    {
+        "am": {
+            "meme": {
+                "renk": {
+                    "neresi": {
+                        "color": "MAVIA",
+                        "am": false
+                    }
+                }
+            }
+        }
+    }
+]

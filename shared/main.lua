@@ -68,9 +68,65 @@ end
 ---@param data table
 ---@param from table
 ---@param to table
----@return table
+---@return table?
 function bridge:transform(data, from, to)
-    return {}
+    if data and type(data) == 'table' then
+        if from and type(from) == 'table' then
+            if to and type(to) == 'table' then
+                local result = {}
+                local stack = { { data = data, schema = from, result = result } }
+
+                repeat
+                    local current = table.remove(stack)
+
+                    for key, value in pairs(current.schema) do
+                        if type(value) == 'table' then
+                            stack[#stack + 1] = {
+                                data = current.data[key],
+                                schema = value,
+                                result = current.result
+                            }
+                        else
+                            current.result[value] = current.data[key]
+                        end
+                    end
+                until #stack == 0
+
+                local finalResult = {}
+                local finalStack = { { data = result, schema = to, result = finalResult } }
+
+                repeat
+                    local current = table.remove(finalStack)
+
+                    for key, value in pairs(current.schema) do
+                        if type(value) == 'table' then
+                            current.result[key] = {}
+                            finalStack[#finalStack+1] = { schema = value, data = current.data, result = current.result[key] }
+                        else
+                            current.result[key] = current.data[value]
+                        end
+                    end
+                until #finalStack == 0
+
+                return finalResult
+            else
+                bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
+                    param = 'to',
+                    func = 'bridge:transform()'
+                }))
+            end
+        else
+            bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
+                param = 'from',
+                func = 'bridge:transform()'
+            }))
+        end
+    else
+        bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {
+            param = 'data',
+            func = 'bridge:transform()'
+        }))
+    end
 end
 
 bridge.data = setmetatable({}, {
