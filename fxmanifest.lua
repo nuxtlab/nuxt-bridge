@@ -16,6 +16,10 @@ files {
 
 ui_page 'dist/index.html'
 
+client_script 'client/*.lua'
+
+server_script 'server/*.lua'
+
 shared_script 'shared/*.lua'
 
 use_experimental_fxv2_oal 'yes'

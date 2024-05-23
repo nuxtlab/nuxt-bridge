@@ -236,16 +236,6 @@ CreateThread(function ()
         end
     end
 
-    if framework then
-        bridge.logger:success(bridge.locale('framework_found', {
-            framework = bridge.framework.name
-        }))
-
-        bridge.framework = framework
-    else
-        bridge.logger:error(bridge.locale('framework_not_found'))
-    end
-
     if bridge.context == 'client' then
         -- TODO: useLocale
         RegisterNuiCallback('useLocale', function (data, callback)
@@ -253,6 +243,16 @@ CreateThread(function ()
 
             -- callback('OK')
         end)
+    end
+
+    if framework then
+        bridge.framework = framework
+
+        bridge.logger:success(bridge.locale('framework_found', {
+            framework = bridge.framework.name
+        }))
+    else
+        bridge.logger:error(bridge.locale('framework_not_found'))
     end
 end)
 
