@@ -2,44 +2,29 @@ return {
     esx = {
         resourceName = 'es_extended',
         init = function ()
-            local payload = {}
+            local framework = exports['es_extended']:getSharedObject()
 
-            -- TODO
+            framework.schema = {
+                player = {}
+            }
 
-            return payload
+            -- TODO: Eventler.
+
+            return framework
         end
     },
     qb = {
         resourceName = 'qb-core',
         init = function ()
-            local payload = exports['qb-core']:GetCoreObject()
+            local framework = exports['qb-core']:GetCoreObject()
 
-            payload.schema = {
-                player = {
-                    PlayerData = {
-                        source = 'source',
-                        citizenid = 'identifier',
-                        charinfo = {
-                            firstname = 'firstname',
-                            lastname = 'lastname'
-                        }
-                    }
-                }
+            framework.schema = {
+                player = {}
             }
 
             -- TODO: Eventler.
 
-            return payload
-        end
-    },
-    ox = {
-        resourceName = 'ox_core',
-        init = function ()
-            local payload = {}
-
-            -- TODO
-
-            return payload
+            return framework
         end
     }
 }

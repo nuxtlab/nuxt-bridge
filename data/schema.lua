@@ -1,8 +1,14 @@
+---@class Player
+
 return {
     player = {
         source = 'source',
-        identifier = 'identifier',
-        firstname = 'firstname',
-        lastname = 'lastname'
+        identifier = 'identifier'
     }
 }
+
+--[[
+    - Job
+    - Gang
+    - Money
+]]
