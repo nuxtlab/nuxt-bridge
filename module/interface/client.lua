@@ -13,7 +13,7 @@ function interface:notify(text, style, duration)
             if bridge.framework.name == 'esx' then
                 bridge.framework.ShowNotification(text, style, duration)
             elseif bridge.framework.name == 'qb' then
-                bridge.framework.Functions.Notify(text, style, duration)
+                bridge.framework.Functions.Notify(text, style == 'inform' and 'primary' or style, duration)
             end
         else
             bridge.logger:error(bridge.locale('param_not_found_or_incorrect_type', {

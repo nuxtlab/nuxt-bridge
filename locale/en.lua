@@ -12,4 +12,7 @@ return {
     param_not_found = '"@param" not found when using the "@func".',
     param_not_found_or_incorrect_type = '"@param" parameter was not found or type not correct when using "@func".',
     uninitialized_resource_used = 'An uninitialized resource was used when using "bridge:import()".',
+    current_version_not_found = 'No current version found for @resource',
+    new_version_found = 'A new version is available for @resource. (@url)',
+    resource_connected = '@resource connected successfully.'
 }

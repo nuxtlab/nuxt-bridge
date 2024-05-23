@@ -3,7 +3,8 @@ game 'gta5'
 
 author 'cool0356'
 description 'Intuitive bridge system by Nuxt Lab.'
-version '0.0.5'
+repository 'https://github.com/nuxtlab/nuxt-bridge'
+version '0.0.3'
 
 files {
     'collection/*.json',

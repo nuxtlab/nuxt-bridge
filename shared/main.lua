@@ -236,6 +236,8 @@ CreateThread(function ()
         end
     end
 
+    bridge.framework = framework or {}
+
     if bridge.context == 'client' then
         -- TODO: useLocale
         RegisterNuiCallback('useLocale', function (data, callback)
@@ -243,16 +245,10 @@ CreateThread(function ()
 
             -- callback('OK')
         end)
-    end
-
-    if framework then
-        bridge.framework = framework
-
-        bridge.logger:success(bridge.locale('framework_found', {
-            framework = bridge.framework.name
-        }))
     else
-        bridge.logger:error(bridge.locale('framework_not_found'))
+        Wait(500)
+
+        bridge.event:trigger('nuxt-bridge:server:connect', bridge.resourceName)
     end
 end)
 
