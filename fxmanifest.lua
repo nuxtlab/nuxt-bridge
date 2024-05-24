@@ -9,13 +9,13 @@ version '0.0.6'
 files {
     'collection/*.json',
     'data/*.lua',
-    'dist/*',
-	'dist/**/*',
+    '.output/*',
+	'.output/**/*',
     'locale/*.lua',
     'module/**/*.lua'
 }
 
-ui_page 'dist/index.html'
+ui_page '.output/index.html'
 
 client_script 'client/*.lua'
 
