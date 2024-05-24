@@ -184,14 +184,14 @@ bridge.locale = setmetatable({}, {
             bridge.logger:error(('Locale "%s" not found.'):format(bridge.data.config.locale))
         end
     end,
-    __call = function (self, index, variables)
+    __call = function (self, index, props)
         local string = self[index]
 
         if string then
             for match in string:gmatch('@([%w_]+)') do
-                if variables then
-                    if variables[match] then
-                        string = string:gsub(('@%s'):format(match), variables[match])
+                if props then
+                    if props[match] then
+                        string = string:gsub(('@%s'):format(match), props[match])
                     else
                         bridge.logger:error(bridge.locale('locale_variable_not_found', {
                             variable = match,
@@ -199,7 +199,7 @@ bridge.locale = setmetatable({}, {
                         }))
                     end
                 else
-                    bridge.logger:error(bridge.locale('locale_variables_not_found', {
+                    bridge.logger:error(bridge.locale('locale_props_not_found', {
                         locale = index
                     }))
                 end
@@ -239,11 +239,10 @@ CreateThread(function ()
     bridge.framework = framework or {}
 
     if bridge.context == 'client' then
-        -- TODO: useLocale
         RegisterNuiCallback('useLocale', function (data, callback)
-            print(json.encode(data))
+            local text = bridge.locale(data.index, data.props)
 
-            -- callback('OK')
+            callback(text)
         end)
     else
         Wait(500)

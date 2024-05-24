@@ -6,7 +6,7 @@ return {
     framework_not_found = 'No framework found to load.',
     locale_param_not_found = 'The parameter "@param" was not found in "@locale".',
     locale_variable_not_found = 'Variable "@variable" was not found when using "bridge.locale()" for "@locale".',
-    locale_variables_not_found = 'Variables was not found when using "bridge.locale()" for "@locale".',
+    locale_props_not_found = 'Props was not found when using "bridge.locale()" for "@locale".',
     module_failed_to_run = 'Failed to run module "@module" from source "@resource" when using "bridge:import()".',
     module_not_found = 'Module "@module" was not found in resource "@resource" when using "bridge:import()".',
     param_not_found = '"@param" not found when using the "@func".',

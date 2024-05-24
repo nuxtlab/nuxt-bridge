@@ -1,12 +1,4 @@
 CreateThread(function ()
-    if next(bridge.framework) then
-        bridge.logger:success(bridge.locale('framework_found', {
-            framework = bridge.framework.name
-        }))
-    else
-        bridge.logger:error(bridge.locale('framework_not_found'))
-    end
-
     bridge.event:register('nuxt-bridge:server:connect', function (resourceName)
         if resourceName ~= bridge.name then
             bridge.logger:success(bridge.locale('resource_connected', {
@@ -21,7 +13,7 @@ CreateThread(function ()
         if currentVersion then
             currentVersion = currentVersion:match('%d+%.%d+%.%d+')
 
-            PerformHttpRequest(('https://api.github.com/repos/nuxtlab/%s/releases/latest'):format(resourceName), function(status, response)
+            PerformHttpRequest(('https://api.github.com/repos/nuxtlab/%s/releases/latest'):format(resourceName), function (status, response)
                 if status ~= 200 then return end
 
                 response = json.decode(response)
@@ -53,4 +45,14 @@ CreateThread(function ()
             }))
         end
     end)
+
+    Wait(500)
+
+    if next(bridge.framework) then
+        bridge.logger:success(bridge.locale('framework_found', {
+            framework = bridge.framework.name
+        }))
+    else
+        bridge.logger:error(bridge.locale('framework_not_found'))
+    end
 end)
